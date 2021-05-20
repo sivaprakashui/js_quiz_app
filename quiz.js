@@ -1,3 +1,4 @@
+/*creating a question array -->each object in this array will have a key value pair */
 var question = [
     {},
     {
@@ -32,7 +33,9 @@ var question = [
 var current_question = 0
 getNextQuestion()
 function getNextQuestion() {
+    /*to check whether the user reached the last question */
     var last_index_of_questions = question.length - 1
+    /*if user reached the end of the quit */
     if (current_question === last_index_of_questions) {
         alert('you have answered all questions')
         calculateQuizResult()
@@ -40,8 +43,11 @@ function getNextQuestion() {
 
         return
     }
+    /*increase the current question index */
     current_question++
+    /*create a variable and make a reference to question-div from html file */
     var question_div = document.getElementById('question-div')
+    /*remove any HTML code from question-div before displaying a new question */
     question_div.innerHTML = ''
     question_div.innerHTML =
         '<div class="card">' +
@@ -72,29 +78,39 @@ function getNextQuestion() {
 }
 
 function addEventListenersToElements() {
+    /*this is gonna return the array of all answers (p tags)*/
     var answers = document.getElementsByClassName('answer')
     /*console.log(answers)*/
+    /*looping and adding EventListeners*/
     for (var i = 0; i < answers.length; i++) {
         answers[i].addEventListener('mouseover', changeAnswerBackgroundColor)
         answers[i].addEventListener('mouseout', changeAnswerBackgroundColor)
         answers[i].addEventListener('click', selectAnswer)
     }
     function changeAnswerBackgroundColor(e) {
+        /* if the background color is not white --> there is a another color*/
         if (e.target.style.background === 'yellow') {
         } else if (e.target.style.backgroundColor !== '') {
             e.target.style.backgroundColor = ''
+            /*if there is no color add your color */
         } else {
             e.target.style.backgroundColor = 'purple'
         }
     }
 
     function selectAnswer(e) {
+        /*get the question id and store it in the user_answer array */
         var question_id = parseInt(document.getElementById('question-id').innerHTML.trim())
+        /*parseInt is going to convert string to integer because question_id must be a integer */
 
+        /*get user answer from each element which is clicked by a user  */
         var user_answer = e.target.innerHTML
+        /*store user answer in the question array */
         question[question_id].user_answer = user_answer
         /*alert(user_answer)*/
+        /*Create a function to remove from all answers */
         removeBackgroundColorFromAllAnswers()
+        /*change the background color of the selected answer */
         e.target.style.background = 'yellow'
     }
     function removeBackgroundColorFromAllAnswers() {
@@ -111,8 +127,9 @@ function calculateQuizResult() {
     for (var i = 1; i < question.length; i++) {
         var user_answer = question[i].user_answer.trim()
         var correct_answer = question[i].correct_answer.trim()
-
+        /*if the user answered correctly for this question */
         if (correct_answer === user_answer) {
+            /*giving user a point */
             points++
         }
     }
