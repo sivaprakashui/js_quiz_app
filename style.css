@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Eskool';
+    src: url('Eskool-Regular.ttf');
+}
+body {
+    font-family: Eskool;
+}
+.card {
+    width: 80%;
+    margin: 10px auto;
+}
+.result {
+    background: skyblue;
+}
